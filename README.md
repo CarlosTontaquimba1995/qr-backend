@@ -44,6 +44,13 @@ $ npm run start:dev
 $ npm run start:prod
 ```
 
+## Crear usuario admin
+
+```bash
+# development
+$ npm run create-admin
+```
+
 ## Run tests
 
 ```bash

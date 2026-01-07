@@ -20,16 +20,19 @@ import { User } from './users/entities/user.entity';
       imports: [ConfigModule],
       useFactory: (configService: ConfigService) => ({
         type: 'postgres',
-        host: configService.get('DB_HOST', 'localhost'),
-        port: +configService.get<number>('DB_PORT', 5432),
-        username: configService.get('DB_USERNAME', 'postgres'),
-        password: configService.get('DB_PASSWORD', 'root'),
-        database: configService.get('DB_DATABASE', 'validador_qr'),
-        entities: [__dirname + '/**/*.entity{.ts,.js}'],
-        synchronize: process.env.NODE_ENV !== 'production',
-        logging: process.env.NODE_ENV !== 'production',
+       host: configService.get('DB_HOST'),
+       port: configService.get<number>('DB_PORT'),
+       username: configService.get('DB_USERNAME'),
+       password: configService.get('DB_PASSWORD'),
+       database: configService.get('DB_DATABASE'),
+       entities: [__dirname + '/**/*.entity{.ts,.js}'],
+        synchronize: configService.get<boolean>('DB_SYNCHRONIZE', false),
+        logging: configService.get<boolean>('DB_LOGGING', false),
+        ssl: configService.get<boolean>('DB_SSL', false) ? {
+          rejectUnauthorized: false
+        } : undefined,
       }),
-      inject: [ConfigService],
+      inject: [ConfigService]
     }),
 
     AuthModule,
