@@ -4,17 +4,16 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { TicketsModule } from './tickets/tickets.module';
-import { Entrada } from './entities/entrada.entity';
-import { IntentoFraude } from './entities/intento-fraude.entity';
 import { AuthModule } from './auth/auth.module';
 import { UsersModule } from './users/users.module';
-import { User } from './users/entities/user.entity';
+import { ScriptsModule } from './scripts/scripts.module';
 
 @Module({
   imports: [
     ConfigModule.forRoot({
       isGlobal: true,
     }),
+    ScriptsModule,
 
     TypeOrmModule.forRootAsync({
       imports: [ConfigModule],
