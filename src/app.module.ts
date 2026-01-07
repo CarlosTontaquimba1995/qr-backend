@@ -26,11 +26,11 @@ import { User } from './users/entities/user.entity';
        password: configService.get('DB_PASSWORD'),
        database: configService.get('DB_DATABASE'),
        entities: [__dirname + '/**/*.entity{.ts,.js}'],
-        synchronize: configService.get<boolean>('DB_SYNCHRONIZE', false),
-        logging: configService.get<boolean>('DB_LOGGING', false),
-        ssl: configService.get<boolean>('DB_SSL', false) ? {
+        synchronize: configService.get('DB_SYNCHRONIZE') === 'true',
+        logging: configService.get('DB_LOGGING') === 'true',
+        ssl: configService.get('DB_SSL') === 'true' ? {
           rejectUnauthorized: false
-        } : undefined,
+        } : false,
       }),
       inject: [ConfigService]
     }),

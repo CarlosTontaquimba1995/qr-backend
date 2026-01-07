@@ -44,11 +44,47 @@ $ npm run start:dev
 $ npm run start:prod
 ```
 
-## Crear usuario admin
+## Docker Setup
+
+### Prerequisites
+- Docker
+- Docker Compose
+
+### Environment Setup
+1. Copy the example environment file and update the values as needed:
+   ```bash
+   cp .env.example .env
+   ```
+   Edit the `.env` file with your configuration.
+
+### Build and Run with Docker Compose
 
 ```bash
-# development
-$ npm run create-admin
+# Build and start all services
+$ docker-compose up --build -d
+
+# View logs
+$ docker-compose logs -f
+
+# Stop all services
+$ docker-compose down
+
+# Stop and remove all containers, volumes, and networks
+$ docker-compose down -v
+```
+
+### Services
+- **Application**: http://localhost:3000
+- **PostgreSQL**: port 5432
+- **Redis**: port 6379
+
+## Crear usuario admin
+
+After starting the services with Docker, you can create an admin user by running:
+
+```bash
+# Create admin user (run inside the container)
+$ docker-compose exec app npm run create-admin
 ```
 
 ## Run tests
