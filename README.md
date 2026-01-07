@@ -78,15 +78,6 @@ $ docker-compose down -v
 - **PostgreSQL**: port 5432
 - **Redis**: port 6379
 
-## Crear usuario admin
-
-After starting the services with Docker, you can create an admin user by running:
-
-```bash
-# Create admin user (run inside the container)
-$ docker-compose exec app npm run create-admin
-```
-
 ## Run tests
 
 ```bash
