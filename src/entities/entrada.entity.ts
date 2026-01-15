@@ -8,7 +8,7 @@ export const EstadoEntradaEnum = {
   USADO: 'USADO' as EstadoEntrada
 };
 
-@Entity('entradas')
+@Entity('entrada')
 export class Entrada {
   @PrimaryGeneratedColumn()
   id: number;
@@ -21,6 +21,9 @@ export class Entrada {
 
   @Column({ type: 'varchar', length: 100, nullable: true })
   email_cliente: string;
+
+  @Column({ type: 'decimal', precision: 10, scale: 2 })
+  monto_total: number;
 
   @Column({
     type: 'varchar',
@@ -43,4 +46,7 @@ export class Entrada {
 
   @Column({ type: 'uuid' })
   usuario_id: string;
+
+  @Column({ type: 'jsonb' })
+  detalles: any;
 }

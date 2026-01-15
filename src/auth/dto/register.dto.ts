@@ -19,10 +19,12 @@ export class RegisterDto {
 
     @IsString()
     @IsNotEmpty()
+    @Length(2, 100, { message: 'El nombre debe tener entre 2 y 100 caracteres' })
     firstName: string;
 
     @IsString()
     @IsNotEmpty()
+    @Length(2, 100, { message: 'Los apellidos deben tener entre 2 y 100 caracteres' })
     lastName: string;
 
     @IsEnum(UserRole)

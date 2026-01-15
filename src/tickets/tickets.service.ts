@@ -29,6 +29,8 @@ export class TicketsService {
       uuid_ticket: token,
       nombre_cliente: createTicketDto.nombre_cliente,
       email_cliente: createTicketDto.email_cliente,
+      monto_total: createTicketDto.monto_total,
+      detalles: createTicketDto.detalles,
       estado: EstadoEntradaEnum.PENDIENTE,
       fecha_compra: new Date(),
       usuario_id: userId
@@ -43,8 +45,10 @@ export class TicketsService {
       ticket: {
         id: ticket.id,
         token: ticket.uuid_ticket,
+        detalles: ticket.detalles,
         nombre_cliente: ticket.nombre_cliente,
         email_cliente: ticket.email_cliente,
+        monto_total: ticket.monto_total,
         estado: ticket.estado,
         fecha_compra: ticket.fecha_compra
       },

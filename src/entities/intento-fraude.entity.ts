@@ -6,7 +6,7 @@ export enum MotivoError {
   TOKEN_INEXISTENTE = 'TOKEN_INEXISTENTE'
 }
 
-@Entity('intentos_fraude')
+@Entity('intento_fraude')
 export class IntentoFraude {
   @PrimaryGeneratedColumn()
   id: number;

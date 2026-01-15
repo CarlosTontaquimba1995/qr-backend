@@ -18,6 +18,12 @@ export class User {
     @Column({ length: 10, unique: true })
     cedula: string;
 
+    @Column({ name: 'first_name', length: 100, nullable: false })
+    firstName: string;
+
+    @Column({ name: 'last_name', length: 100, nullable: false })
+    lastName: string;
+
     @Column({
         select: false,
         nullable: false
@@ -32,10 +38,10 @@ export class User {
     role: UserRole;
 
     @CreateDateColumn()
-    createdAt: Date;
+    created_at: Date;
 
     @UpdateDateColumn()
-    updatedAt: Date;
+    updated_at: Date;
 
     @OneToMany(() => Entrada, entrada => entrada.usuario)
     tickets: Entrada[];

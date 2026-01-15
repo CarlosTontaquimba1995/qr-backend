@@ -1,5 +1,7 @@
-import { IsEmail, IsNotEmpty, IsString } from 'class-validator';
+import { IsArray, IsEmail, IsNotEmpty, IsNumber, IsString, ValidateNested } from 'class-validator';
 import { ApiProperty } from '@nestjs/swagger';
+import { DetalleEntradaDto } from './detalle-entrada.dto';
+import { Type } from 'class-transformer';
 
 export class CreateTicketDto {
     @ApiProperty({
@@ -19,4 +21,18 @@ export class CreateTicketDto {
     @IsEmail()
     @IsNotEmpty()
     email_cliente: string;
+
+    @ApiProperty({ example: 300 })
+    @IsNumber()
+    @IsNotEmpty()
+    monto_total: number;
+
+    @ApiProperty({
+        description: 'Lista de entradas compradas',
+        type: [DetalleEntradaDto]
+    })
+    @IsArray()
+    @ValidateNested({ each: true })
+    @Type(() => DetalleEntradaDto)
+    detalles: DetalleEntradaDto[];
 }

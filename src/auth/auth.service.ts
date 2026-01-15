@@ -69,6 +69,8 @@ export class AuthService {
             sub: user.id,
             email: user.email,
             role: user.role,
+            firstName: user.firstName,
+            lastName: user.lastName
         };
 
         try {
@@ -81,6 +83,8 @@ export class AuthService {
                     id: user.id,
                     email: user.email,
                     role: user.role,
+                    firstName: user.firstName,
+                    lastName: user.lastName
                 },
             };
         } catch (error) {
