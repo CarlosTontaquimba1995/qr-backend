@@ -3,19 +3,24 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Repository, DataSource } from 'typeorm';
 import { v4 as uuidv4 } from 'uuid';
 import * as QRCode from 'qrcode';
-import { Entrada, EstadoEntradaEnum } from '../entities/entrada.entity';
-import { IntentoFraude, MotivoError } from '../entities/intento-fraude.entity';
 import { ValidateTicketRequestDto } from './dto/validate-ticket-request.dto';
 import { CreateTicketDto } from './dto/create-ticket.dto';
+import { MailService } from '../mail/mail.service';
+import { Entrada, EstadoEntradaEnum } from 'src/entities/entrada.entity';
+import { IntentoFraude, MotivoError } from 'src/entities/intento-fraude.entity';
+import { Logger } from '@nestjs/common';
+
 
 @Injectable()
 export class TicketsService {
+  private readonly logger = new Logger(TicketsService.name);
   constructor(
     @InjectRepository(Entrada)
     private readonly entradaRepository: Repository<Entrada>,
     @InjectRepository(IntentoFraude)
     private readonly intentoFraudeRepository: Repository<IntentoFraude>,
     private dataSource: DataSource,
+    private readonly mailService: MailService,
   ) { }
 
   async createTicket(createTicketDto: CreateTicketDto, userId?: string) {
@@ -37,9 +42,24 @@ export class TicketsService {
     });
 
     await this.entradaRepository.save(ticket);
-
     // Generate QR code
     const qrCodeUrl = await this.generateQRCode(token);
+
+    // Send email with ticket details
+    try {
+      await this.mailService.sendTicketConfirmation(
+        ticket.email_cliente,
+        ticket.nombre_cliente,
+        ticket.uuid_ticket,
+        qrCodeUrl,
+        ticket.detalles,
+        ticket.monto_total,
+        ticket.fecha_compra
+      );
+    } catch (error) {
+      console.error('Error sending email:', error);
+      // Don't fail the request if email sending fails
+    }
 
     return {
       ticket: {

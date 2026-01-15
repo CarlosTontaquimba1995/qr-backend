@@ -7,11 +7,13 @@ import { Entrada } from '../entities/entrada.entity';
 import { IntentoFraude } from '../entities/intento-fraude.entity';
 import { User } from '../users/entities/user.entity';
 import { AuthModule } from '../auth/auth.module';
+import { MailModule } from '../mail/mail.module';
 
 @Module({
   imports: [
     TypeOrmModule.forFeature([Entrada, IntentoFraude, User]),
     AuthModule,
+    MailModule,
   ],
   controllers: [TicketsController],
   providers: [TicketsService],
