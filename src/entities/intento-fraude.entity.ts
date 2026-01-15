@@ -19,7 +19,7 @@ export class IntentoFraude {
     enum: MotivoError,
     nullable: false
   })
-  motivo_error: MotivoError;
+  motivo: MotivoError;
 
   @Column({ type: 'varchar', length: 50, nullable: true })
   id_puerta: string;

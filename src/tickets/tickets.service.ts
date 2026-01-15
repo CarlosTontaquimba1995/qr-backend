@@ -188,7 +188,7 @@ export class TicketsService {
       const intento = new IntentoFraude();
       intento.uuid_escaneado = uuid;
       intento.id_puerta = idPuerta;
-      intento.motivo_error = motivo;
+      intento.motivo = motivo;
       intento.fecha_intento = new Date();
       intento.usuario_id = usuarioId;
 

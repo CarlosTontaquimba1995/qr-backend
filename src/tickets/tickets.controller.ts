@@ -1,4 +1,5 @@
-import { Controller, Post, Body, HttpStatus, HttpCode, UseGuards } from '@nestjs/common';
+import { Controller, Post, Body, HttpStatus, HttpCode, UseGuards, Res } from '@nestjs/common';
+import type { Response } from 'express';
 import { ApiTags, ApiOperation, ApiResponse, ApiBody, ApiBearerAuth } from '@nestjs/swagger';
 import type { CurrentUser as CurrentUserInterface } from '../auth/interfaces/current-user.interface';
 import { JwtAuthGuard } from '../auth/guards/jwt-auth.guard';
@@ -54,7 +55,6 @@ export class TicketsController {
   }
 
   @Post('validar')
-  @HttpCode(HttpStatus.OK)
   @Roles(UserRole.ADMIN)
   @ApiBearerAuth()
   @ApiOperation({ summary: 'Validar un ticket QR' })
@@ -64,6 +64,7 @@ export class TicketsController {
   @ApiResponse({ status: 404, description: 'Ticket no encontrado' })
   @ApiResponse({ status: 409, description: 'Ticket ya ha sido utilizado' })
   async validateTicket(
+    @Res({ passthrough: true }) res: Response,
     @CurrentUser() user: CurrentUserInterface,
     @Body() validateTicketDto: ValidateTicketRequestDto
   ) {
@@ -72,6 +73,15 @@ export class TicketsController {
       usuario_id: user.id,
       usuario_rol: user.role
     };
-    return this.ticketsService.validateTicket(validateRequest);
+
+    const result = await this.ticketsService.validateTicket(validateRequest);
+
+    if (result.codigo === 'TICKET_YA_USADO' || result.codigo === 'TICKET_NO_ENCONTRADO') {
+      res.status(HttpStatus.CONFLICT);
+    } else {
+      res.status(HttpStatus.OK);
+    }
+
+    return result;
   }
 }
