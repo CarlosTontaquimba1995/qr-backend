@@ -29,6 +29,7 @@ CREATE TABLE entrada (
     nombre_cliente VARCHAR(100) NOT NULL,
     email_cliente VARCHAR(100),
     monto_total DECIMAL(10, 2) NOT NULL DEFAULT 0,
+    nombre_evento VARCHAR(255) NOT NULL,
     detalles JSONB NOT NULL, 
     estado estado_entrada DEFAULT 'PENDIENTE',
     fecha_compra TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
