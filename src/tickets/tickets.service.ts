@@ -33,6 +33,7 @@ export class TicketsService {
     const ticket = this.entradaRepository.create({
       uuid_ticket: token,
       nombre_cliente: createTicketDto.nombre_cliente,
+      nombre_evento: createTicketDto.nombre_evento,
       email_cliente: createTicketDto.email_cliente,
       monto_total: createTicketDto.monto_total,
       detalles: createTicketDto.detalles,
@@ -53,6 +54,7 @@ export class TicketsService {
         ticket.uuid_ticket,
         qrCodeUrl,
         ticket.detalles,
+        ticket.nombre_evento,
         ticket.monto_total,
         ticket.fecha_compra
       );
@@ -67,6 +69,7 @@ export class TicketsService {
         token: ticket.uuid_ticket,
         detalles: ticket.detalles,
         nombre_cliente: ticket.nombre_cliente,
+        nombre_evento: ticket.nombre_evento,
         email_cliente: ticket.email_cliente,
         monto_total: ticket.monto_total,
         estado: ticket.estado,

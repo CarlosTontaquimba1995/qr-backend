@@ -19,6 +19,9 @@ export class Entrada {
   @Column({ type: 'varchar', length: 100 })
   nombre_cliente: string;
 
+  @Column({ type: 'varchar', length: 255 })
+  nombre_evento: string;
+
   @Column({ type: 'varchar', length: 100, nullable: true })
   email_cliente: string;
 

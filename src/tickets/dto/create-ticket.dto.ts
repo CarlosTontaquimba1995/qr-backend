@@ -22,6 +22,15 @@ export class CreateTicketDto {
     @IsNotEmpty()
     email_cliente: string;
 
+    @ApiProperty({
+        description: 'Nombre del evento',
+        example: 'Concierto de...',
+        required: true
+    })
+    @IsString()
+    @IsNotEmpty()
+    nombre_evento: string;
+
     @ApiProperty({ example: 300 })
     @IsNumber()
     @IsNotEmpty()

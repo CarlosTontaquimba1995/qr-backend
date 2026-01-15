@@ -1,5 +1,6 @@
 <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 20px; text-align: center;">
-  <h2 style="color: #2c3e50; margin-bottom: 20px;">¡Tu entrada para el evento!</h2>
+<h2 style="color: #2c3e50; margin-bottom: 5px;">¡Tu entrada para el evento!</h2>
+<h3 style="color: #3498db; margin-top: 0; margin-bottom: 20px;">{{ticket.nombre_evento}}</h3>
   
   <div style="margin: 20px 0; text-align: center; background: white; padding: 20px; border: 1px solid #e0e0e0; border-radius: 8px; display: inline-block;">
     <img src="cid:{{qrContentId}}" 
@@ -10,7 +11,8 @@
   
   <div style="margin-top: 20px; font-size: 14px; color: #555; text-align: left;">
     <p><strong>N° de Ticket:</strong> {{ticketId}}</p>
-    <p><strong>Evento:</strong></p>
+    <p><strong>Evento:</strong> {{ticket.nombre_evento}}</p>
+    <p><strong>Detalles del evento:</strong></p>
     <ul style="margin-top: 5px; padding-left: 20px;">
       {{#each eventDetails}}
         <li>{{this.nombre_evento}} (x{{this.cantidad}})</li>

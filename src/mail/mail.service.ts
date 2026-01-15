@@ -77,6 +77,7 @@ export class MailService {
         ticketId: string,
         qrCodeUrl: string,
         eventDetails: any,
+        nombre_evento: string,
         amount: number,
         purchaseDate: Date
     ) {
@@ -101,12 +102,13 @@ export class MailService {
 
             // Extract base64 data from the data URL
             const base64Data = qrCodeUrl.split(',')[1];
-
+            this.logger.log("eventDetails", eventDetails)
             const html = template({
                 name,
                 ticketId,
                 qrContentId,  // Pass the content ID to the template
                 eventDetails,
+                nombre_evento: nombre_evento,
                 amount: amount.toFixed(2),
                 purchaseDate: formattedDate,
                 supportEmail: this.configService.get('MAIL_SUPPORT_EMAIL') || 'soporte@tudominio.com'
