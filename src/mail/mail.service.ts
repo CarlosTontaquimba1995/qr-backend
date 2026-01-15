@@ -41,7 +41,6 @@ export class MailService {
                 emailParams.setText(text);
             }
 
-            // Add attachments if any
             if (attachments && attachments.length > 0) {
                 emailParams.attachments = attachments;
             }
@@ -53,22 +52,6 @@ export class MailService {
             this.logger.error(`Error sending email to ${to}:`, error);
             throw error;
         }
-    }
-
-    async sendUserConfirmation(email: string, token: string) {
-        const url = `${this.configService.get('FRONTEND_URL')}/confirm-email?token=${token}`;
-        const subject = 'Welcome to Our App! Confirm your Email';
-        const html = `Hello,<br><br>Please confirm your email by clicking the following link:<br><br><a href="${url}">Confirm email</a>`;
-
-        return this.sendEmail(email, subject, html);
-    }
-
-    async sendPasswordReset(email: string, token: string) {
-        const url = `${this.configService.get('FRONTEND_URL')}/reset-password?token=${token}`;
-        const subject = 'Password Reset Request';
-        const html = `Hello,<br><br>To reset your password, please click the following link:<br><br><a href="${url}">Reset password</a>`;
-
-        return this.sendEmail(email, subject, html);
     }
 
     async sendTicketConfirmation(
@@ -97,24 +80,20 @@ export class MailService {
                 minute: '2-digit'
             });
 
-            // Generate a unique content ID for the QR code
             const qrContentId = `qr-${ticketId}`;
-
-            // Extract base64 data from the data URL
             const base64Data = qrCodeUrl.split(',')[1];
-            this.logger.log("eventDetails", eventDetails)
+            this.logger.log("nombre evento: " + nombre_evento);
             const html = template({
                 name,
                 ticketId,
-                qrContentId,  // Pass the content ID to the template
-                eventDetails,
+                qrContentId,
+                detalles: eventDetails,
                 nombre_evento: nombre_evento,
                 amount: amount.toFixed(2),
                 purchaseDate: formattedDate,
                 supportEmail: this.configService.get('MAIL_SUPPORT_EMAIL') || 'soporte@tudominio.com'
             });
 
-            // Create the email with embedded image using MailerSend's API
             const sentFrom = new Sender(this.mailFrom, this.mailFromName);
             const recipients = [new Recipient(email)];
 

@@ -43,10 +43,8 @@ export class TicketsService {
     });
 
     await this.entradaRepository.save(ticket);
-    // Generate QR code
     const qrCodeUrl = await this.generateQRCode(token);
 
-    // Send email with ticket details
     try {
       await this.mailService.sendTicketConfirmation(
         ticket.email_cliente,
@@ -60,7 +58,6 @@ export class TicketsService {
       );
     } catch (error) {
       console.error('Error sending email:', error);
-      // Don't fail the request if email sending fails
     }
 
     return {

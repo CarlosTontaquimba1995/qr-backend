@@ -38,5 +38,5 @@ export class CreateTicketDto {
     @IsArray()
     @ValidateNested({ each: true })
     @Type(() => DetalleEntradaDto)
-    detalles: DetalleEntradaDto[]; // Este es el cambio clave
+    detalles: DetalleEntradaDto[];
 }

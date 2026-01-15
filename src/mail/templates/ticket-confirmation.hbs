@@ -1,6 +1,6 @@
 <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 20px; text-align: center;">
 <h2 style="color: #2c3e50; margin-bottom: 5px;">¡Tu entrada para el evento!</h2>
-<h3 style="color: #3498db; margin-top: 0; margin-bottom: 20px;">{{ticket.nombre_evento}}</h3>
+<h3 style="color: #3498db; margin-top: 0; margin-bottom: 20px;">{{nombre_evento}}</h3>
   
   <div style="margin: 20px 0; text-align: center; background: white; padding: 20px; border: 1px solid #e0e0e0; border-radius: 8px; display: inline-block;">
     <img src="cid:{{qrContentId}}" 
@@ -11,14 +11,34 @@
   
   <div style="margin-top: 20px; font-size: 14px; color: #555; text-align: left;">
     <p><strong>N° de Ticket:</strong> {{ticketId}}</p>
-    <p><strong>Evento:</strong> {{ticket.nombre_evento}}</p>
-    <p><strong>Detalles del evento:</strong></p>
-    <ul style="margin-top: 5px; padding-left: 20px;">
-      {{#each eventDetails}}
-        <li>{{this.nombre_evento}} (x{{this.cantidad}})</li>
-      {{/each}}
-    </ul>
-    <p style="margin-top: 10px;"><strong>Total:</strong> ${{amount}}</p>
+    <p><strong>Evento:</strong> {{nombre_evento}}</p>
+    <p><strong>Detalles de la compra:</strong></p>
+    <table style="width: 100%; border-collapse: collapse; margin: 10px 0; font-size: 13px;">
+        <thead>
+            <tr style="background-color: #f5f5f5;">
+                <th style="padding: 8px; text-align: left; border: 1px solid #ddd;">Tipo</th>
+                <th style="padding: 8px; text-align: center; border: 1px solid #ddd;">Cantidad</th>
+                <th style="padding: 8px; text-align: right; border: 1px solid #ddd;">Precio Unit.</th>
+                <th style="padding: 8px; text-align: right; border: 1px solid #ddd;">Total</th>
+            </tr>
+        </thead>
+        <tbody>
+            {{#each detalles}}
+            <tr>
+                <td style="padding: 8px; border: 1px solid #ddd;">{{type}}</td>
+                <td style="padding: 8px; text-align: center; border: 1px solid #ddd;">{{quantity}}</td>
+                <td style="padding: 8px; text-align: right; border: 1px solid #ddd;">${{price}}</td>
+                <td style="padding: 8px; text-align: right; border: 1px solid #ddd;">${{total}}</td>
+            </tr>
+            {{/each}}
+    </tbody>
+    <tfoot>
+        <tr>
+            <td colspan="3" style="text-align: right; padding: 8px; border: 1px solid #ddd; font-weight: bold;">Total:</td>
+            <td style="text-align: right; padding: 8px; border: 1px solid #ddd; font-weight: bold;">${{amount}}</td>
+        </tr>
+    </tfoot>
+    </table>
     <p style="margin-top: 15px; font-size: 12px; color: #666;">
       <i class="fas fa-info-circle"></i> Muestra este código QR en la entrada del evento
     </p>
