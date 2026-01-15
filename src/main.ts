@@ -14,9 +14,16 @@ async function bootstrap() {
 
   // Enable CORS for frontend access
   app.enableCors({
-    origin: process.env.FRONTEND_URL || '*',
-    methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
+    origin: [
+      'https://venta-voletos.onrender.com',
+      'http://localhost:4200',
+      process.env.FRONTEND_URL,
+    ].filter(Boolean),
+    methods: 'GET,HEAD,PUT,PATCH,POST,DELETE,OPTIONS',
     credentials: true,
+    allowedHeaders: ['Content-Type', 'Authorization'],
+    preflightContinue: false,
+    optionsSuccessStatus: 204
   });
 
   app.useGlobalPipes(
