@@ -150,7 +150,11 @@ export class TicketsService {
         success: true,
         nombre_cliente: ticket.nombre_cliente,
         mensaje: 'Entrada validada exitosamente',
-        fecha_uso: ticket.fecha_uso
+        fecha_uso: ticket.fecha_uso,
+        detalles: ticket.detalles,
+        nombre_evento: ticket.nombre_evento,
+        monto_total: ticket.monto_total,
+        uuid_ticket: ticket.uuid_ticket
       };
     } catch (error) {
       if (queryRunner.isTransactionActive) {

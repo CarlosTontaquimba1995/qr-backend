@@ -1,4 +1,4 @@
-import { Controller, Post, Body, HttpStatus, HttpCode, UseGuards, Res } from '@nestjs/common';
+import { Controller, Post, Body, HttpStatus, HttpCode, UseGuards, Res, Logger } from '@nestjs/common';
 import type { Response } from 'express';
 import { ApiTags, ApiOperation, ApiResponse, ApiBody, ApiBearerAuth } from '@nestjs/swagger';
 import type { CurrentUser as CurrentUserInterface } from '../auth/interfaces/current-user.interface';
@@ -75,7 +75,7 @@ export class TicketsController {
     };
 
     const result = await this.ticketsService.validateTicket(validateRequest);
-
+    Logger.log("result", result);
     if (result.codigo === 'TICKET_YA_USADO' || result.codigo === 'TICKET_NO_ENCONTRADO') {
       res.status(HttpStatus.CONFLICT);
     } else {
